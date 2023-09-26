@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import LotRAPI
 
 struct ContentView: View {
     var body: some View {
@@ -16,6 +17,12 @@ struct ContentView: View {
             Text("Hello, world!")
         }
         .padding()
+        .onAppear {
+            OpenAPIClientAPI.customHeaders["Authorization"] = "Bearer pZDrRq1-aNTZrmE1ejDr"
+            CharactersAPI.charactersGet { data, error in
+                print(data?.docs ?? [])
+            }
+        }
     }
 }
 

@@ -1,0 +1,116 @@
+openapi: 3.0.3
+info:
+  title: LotRAPI
+  description: the-one-api.dev
+  version: 1.0.0
+servers:
+- url: https://the-one-api.dev/v2
+tags:
+- name: Characters
+  description: LotR characters info
+paths:
+  /character/:
+    get:
+      security:
+      - bearerAuth: []
+      tags:
+      - Characters
+      summary: List of characters
+      operationId: charactersGet
+      parameters:
+      - name: limit
+        in: query
+        description: Pagination limit
+        schema:
+          type: integer
+      - name: page
+        in: query
+        description: Pagination page
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CharactersList'
+        default:
+          description: enexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    CharactersList:
+      required: 
+      - docs
+      - total
+      - limit
+      type: object
+      properties:
+        docs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Character'
+        total:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        page:
+          type: integer
+        pages:
+          type: integer
+    Character:
+      required:
+      - _id
+      - height
+      - race
+      - birth
+      - spouse
+      - death
+      - realm
+      - hair
+      - name
+      type: object
+      properties:
+        _id:
+          type: string
+        height:
+          type: string
+        race:
+          type: string
+        gender:
+          type: string
+        birth:
+          type: string
+        spouse:
+          type: string
+        death:
+          type: string
+        realm:
+          type: string
+        hair:
+          type: string
+        name:
+          type: string
+        wikiUrl:
+          type: string
+    ErrorModel:
+      required:
+      - success
+      - message
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
