@@ -12,14 +12,14 @@ import AnyCodable
 
 public struct CharactersList: Codable, JSONEncodable, Hashable {
 
-    public var docs: [ModelCharacter]
+    public var docs: [CharacterModel]
     public var total: Int
     public var limit: Int
     public var offset: Int?
     public var page: Int?
     public var pages: Int?
 
-    public init(docs: [ModelCharacter], total: Int, limit: Int, offset: Int? = nil, page: Int? = nil, pages: Int? = nil) {
+    public init(docs: [CharacterModel], total: Int, limit: Int, offset: Int? = nil, page: Int? = nil, pages: Int? = nil) {
         self.docs = docs
         self.total = total
         self.limit = limit

@@ -58,7 +58,7 @@ components:
         docs:
           type: array
           items:
-            $ref: '#/components/schemas/Character'
+            $ref: '#/components/schemas/CharacterModel'
         total:
           type: integer
         limit:
@@ -69,7 +69,7 @@ components:
           type: integer
         pages:
           type: integer
-    Character:
+    CharacterModel:
       required:
       - _id
       - height

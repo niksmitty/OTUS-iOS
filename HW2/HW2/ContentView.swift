@@ -19,8 +19,13 @@ struct ContentView: View {
         .padding()
         .onAppear {
             OpenAPIClientAPI.customHeaders["Authorization"] = "Bearer pZDrRq1-aNTZrmE1ejDr"
-            CharactersAPI.charactersGet { data, error in
-                print(data?.docs ?? [])
+            Task {
+                do {
+                    let response = try await CharactersAPI.charactersGet()
+                    print(response.docs)
+                } catch {
+                    print(error.localizedDescription)
+                }
             }
         }
     }
