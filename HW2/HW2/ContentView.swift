@@ -6,29 +6,26 @@
 //
 
 import SwiftUI
-import LotRAPI
 
 struct ContentView: View {
+
+    @State private var tabSelection = 0
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
-        .onAppear {
-            OpenAPIClientAPI.customHeaders["Authorization"] = "Bearer pZDrRq1-aNTZrmE1ejDr"
-            Task {
-                do {
-                    let response = try await CharactersAPI.charactersGet()
-                    print(response.docs)
-                } catch {
-                    print(error.localizedDescription)
+        TabView(selection: $tabSelection) {
+            InfoScreen()
+                .tag(0)
+                .tabItem {
+                    Label("Info", systemImage: "info.bubble")
                 }
-            }
+            FavoritesScreen()
+                .tag(1)
+                .tabItem {
+                    Label("Favorites", systemImage: "star")
+                }
         }
     }
+
 }
 
 struct ContentView_Previews: PreviewProvider {
