@@ -8,6 +8,8 @@ servers:
 tags:
 - name: Characters
   description: LotR characters info
+- name: Quotes
+  description: LotR quotes info
 paths:
   /character/:
     get:
@@ -15,7 +17,7 @@ paths:
       - bearerAuth: []
       tags:
       - Characters
-      summary: List of characters
+      summary: List of characters including metadata
       operationId: charactersGet
       parameters:
       - name: limit
@@ -41,6 +43,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
+  /quote/:
+    get:
+      security:
+      - bearerAuth: []
+      tags:
+      - Quotes
+      summary: List of all movie quotes
+      operationId: quotesGet
+      parameters:
+      - name: limit
+        in: query
+        description: Pagination limit
+        schema:
+          type: integer
+      - name: page
+        in: query
+        description: Pagination page
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotesList'
+        default:
+          description: enexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
 components:
   securitySchemes:
     bearerAuth:
@@ -49,7 +83,7 @@ components:
       bearerFormat: JWT
   schemas:
     CharactersList:
-      required: 
+      required:
       - docs
       - total
       - limit
@@ -103,6 +137,43 @@ components:
         name:
           type: string
         wikiUrl:
+          type: string
+    QuotesList:
+      required:
+      - docs
+      - total
+      - limit
+      type: object
+      properties:
+        docs:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteModel'
+        total:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        page:
+          type: integer
+        pages:
+          type: integer
+    QuoteModel:
+      required:
+      - _id
+      - dialog
+      - movie
+      - character
+      type: object
+      properties:
+        _id:
+          type: string
+        dialog:
+          type: string
+        movie:
+          type: string
+        character:
           type: string
     ErrorModel:
       required:
