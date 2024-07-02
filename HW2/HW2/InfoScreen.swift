@@ -26,9 +26,9 @@ struct InfoScreen: View {
                 }
             }
             .pickerStyle(.segmented)
-            switch selectedListOption {
-            case .characters: charactersList
-            case .quotes: quotesList
+            ZStack {
+                charactersList.zIndex(selectedListOption == .characters ? 1 : 0)
+                quotesList.zIndex(selectedListOption == .quotes ? 1 : 0)
             }
         }
     }
