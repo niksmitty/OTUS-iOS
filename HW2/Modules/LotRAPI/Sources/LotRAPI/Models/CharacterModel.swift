@@ -13,18 +13,18 @@ import AnyCodable
 public struct CharacterModel: Codable, JSONEncodable, Hashable {
 
     public var id: String
-    public var height: String
+    public var height: String?
     public var race: String
     public var gender: String?
-    public var birth: String
-    public var spouse: String
-    public var death: String
-    public var realm: String
-    public var hair: String
+    public var birth: String?
+    public var spouse: String?
+    public var death: String?
+    public var realm: String?
+    public var hair: String?
     public var name: String
     public var wikiUrl: String?
 
-    public init(id: String, height: String, race: String, gender: String? = nil, birth: String, spouse: String, death: String, realm: String, hair: String, name: String, wikiUrl: String? = nil) {
+    public init(id: String, height: String? = nil, race: String, gender: String? = nil, birth: String? = nil, spouse: String? = nil, death: String? = nil, realm: String? = nil, hair: String? = nil, name: String, wikiUrl: String? = nil) {
         self.id = id
         self.height = height
         self.race = race
@@ -57,14 +57,14 @@ public struct CharacterModel: Codable, JSONEncodable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        try container.encode(height, forKey: .height)
+        try container.encodeIfPresent(height, forKey: .height)
         try container.encode(race, forKey: .race)
         try container.encodeIfPresent(gender, forKey: .gender)
-        try container.encode(birth, forKey: .birth)
-        try container.encode(spouse, forKey: .spouse)
-        try container.encode(death, forKey: .death)
-        try container.encode(realm, forKey: .realm)
-        try container.encode(hair, forKey: .hair)
+        try container.encodeIfPresent(birth, forKey: .birth)
+        try container.encodeIfPresent(spouse, forKey: .spouse)
+        try container.encodeIfPresent(death, forKey: .death)
+        try container.encodeIfPresent(realm, forKey: .realm)
+        try container.encodeIfPresent(hair, forKey: .hair)
         try container.encode(name, forKey: .name)
         try container.encodeIfPresent(wikiUrl, forKey: .wikiUrl)
     }

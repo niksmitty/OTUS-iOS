@@ -106,13 +106,7 @@ components:
     CharacterModel:
       required:
       - _id
-      - height
       - race
-      - birth
-      - spouse
-      - death
-      - realm
-      - hair
       - name
       type: object
       properties:
